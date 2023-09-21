@@ -1,6 +1,6 @@
 """
 CP1404 - Practical
-Broken program to determine score status
+Program to determine score classification
 """
 import random
 
