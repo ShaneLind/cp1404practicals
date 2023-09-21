@@ -1,6 +1,6 @@
 """
 CP1404 - Practical
-Pseudocode for temperature conversion
+Temperature conversion
 """
 
 
