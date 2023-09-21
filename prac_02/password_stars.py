@@ -28,7 +28,7 @@ Q - Quit"""
 
 
 def get_password(min_length):
-    """ Get user input as password and check if it is of valid length"""
+    """Get user input as password and check if it is of valid length"""
     password = input("Enter a password: ")
     while len(password) < min_length:
         print("Invalid Name (too short)")
