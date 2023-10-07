@@ -29,4 +29,4 @@ while counter < number_of_picks:
             print(" " + str(line[index2]), end=' ')
         else:
             print(str(line[index2]), end=' ')
-    print("")
+    print(" ")
