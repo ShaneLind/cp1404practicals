@@ -54,9 +54,9 @@ Files
 # 4. Now write a fourth block of code that prints the total for all lines in numbers.txt or a file
 # with any number of numbers.
 
-# with open("numbers.txt", "r") as in_file:
-#     total = 0
-#     for line in in_file:
-#         new_number = int(line.strip())
-#         total = total + new_number
-#     print(total)
+with open("numbers.txt", "r") as in_file:
+    total = 0
+    for line in in_file:
+        new_number = int(line.strip())
+        total = total + new_number
+    print(total)
