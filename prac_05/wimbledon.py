@@ -17,11 +17,12 @@ def main():
     max_length = get_max_length_for_printing(champion_to_wins)
     print("Wimbledon Champions:")
     for name, wins in champion_to_wins.items():
-        print(f"{name:{max_length + 1}}- Wins: {wins:1}")
+        print(f"{name:{max_length}} - Wins: {wins:2}")
     print(f"These 12 countries have won Wimbledon:\n {countries_alphabetical}")
 
 
 def get_max_length_for_printing(champion_to_wins):
+    """Get length of longest player name"""
     keys = list(champion_to_wins.keys())
     max_length = max(len(key) for key in keys)
     return max_length
