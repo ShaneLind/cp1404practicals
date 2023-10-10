@@ -1,22 +1,21 @@
 """
 Word Occurrences
 Estimate: 30 minutes
-Actual:
+Actual: 40 minutes
 """
 
+# get user input and creat dictionary
 text = str(input("Text: "))
 words = text.split(' ')
-
 word_to_count = {word: words.count(word) for word in words}
+# print(word_to_count)
 
-print(text)
-print(words)
-print(word_to_count)
+# sort dictionary
+keys = list(word_to_count.keys())
+keys.sort()
+key_to_count = {word: words.count(word) for word in keys}
+max_length = max(len(key) for key in keys)
 
-# state_code = input("Enter short state: ").upper()
-# while state_code != "":
-#     try:
-#         print(state_code, "is", CODE_TO_NAME[state_code])
-#     except KeyError:
-#         print("Invalid short state")
-#     state_code = input("Enter short state: ").upper()
+# print sorted dictionary
+for key, count in key_to_count.items():
+    print(f"{key:{max_length + 1}}: {count:1}")
