@@ -13,7 +13,7 @@ word_to_count = {word: words.count(word) for word in words}
 # sort dictionary
 keys = list(word_to_count.keys())
 keys.sort()
-key_to_count = {word: words.count(word) for word in keys}
+key_to_count = {key: words.count(key) for key in keys}
 max_length = max(len(key) for key in keys)
 
 # print sorted dictionary
