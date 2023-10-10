@@ -7,11 +7,7 @@ Actual:
 text = str(input("Text: "))
 words = text.split(' ')
 
-word_to_count = {}
-count = 0
-
-for word in words:
-    word_to_count[word] = count
+word_to_count = {word: words.count(word) for word in words}
 
 print(text)
 print(words)
