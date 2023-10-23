@@ -1,5 +1,7 @@
 """
 CP1404 Practical - Client code to use the ProgrammingLanguage class.
+Expected time = 30 minutes
+Actual time = 20 minutes
 """
 
 from programming_language import ProgrammingLanguage
