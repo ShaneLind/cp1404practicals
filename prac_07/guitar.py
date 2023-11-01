@@ -1,7 +1,5 @@
 """
 CP1404 Practical - Guitar class.
-Expected time = 40 minutes
-Actual time = 35 minutes
 """
 
 
