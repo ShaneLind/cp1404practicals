@@ -18,4 +18,5 @@ I am currently enrolled in the Programming 2 (CP1404) subject and complete weekl
 ## Links
 
 [Programming Patterns page](https://github.com/CP1404/Starter/wiki/Programming-Patterns)
+
 [CP1404 Practicals instructions repository](https://github.com/CP1404/Practicals)
