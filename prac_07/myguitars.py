@@ -14,6 +14,8 @@ def main():
         guitar_collection.append(guitar_info)
     in_file.close()
 
+    guitar_collection.sort()
+
     for guitar_info in guitar_collection:
         print(guitar_info)
 
