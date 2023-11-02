@@ -22,14 +22,20 @@ def main():
     while choice != "Q":
         if choice == "L":
             project_information = read_from_file()
-            for project in project_information:
-                print(project)
+            print("Projects have been loaded")
 
         elif choice == "S":
-            print("Option S")
-            save_to_file(project_information)
+            try:
+                save_to_file(project_information)  # prevented error using try statement
+                print("Projects have been saved")
+            except UnboundLocalError:
+                print("Data has not been loaded")
         elif choice == "D":
-            print("Option D")
+            try:
+                for project in project_information:
+                    print(project)
+            except UnboundLocalError:
+                print("Data has not been loaded")
         elif choice == "F":
             print("Option F")
         elif choice == "A":
