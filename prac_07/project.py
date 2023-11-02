@@ -14,5 +14,5 @@ class Project:
         self.cost_estimate = cost_estimate
         self.completion_percentage = completion_percentage
 
-    def __str__(self):
+    def __repr__(self):
         return f"({self.name}) , ({self.start_date}) , ({self.priority}) , ({self.cost_estimate}) , ({self.completion_percentage})"
