@@ -40,6 +40,8 @@ def main():
             print("Option F")
         elif choice == "A":
             print("Option A")
+            new_project = add_new_project(project_information)
+            project_information.append(new_project)
         elif choice == "U":
             print("Option U")
         else:
@@ -84,6 +86,21 @@ def save_to_file(project_list):
         output = '\t'.join(parts)
         print(output, file=out_file)
     out_file.close()
+
+
+def add_new_project(project_information):
+    print("Add new project:")
+    # new_name = input("Project name: ")
+    # new_start_date = input("Start date: ")
+    # new_priority = input("Project priority: ")
+    # new_cost_estimate = input("Project cost estimate: ")
+    # new_completion_percentage = input("Project completion percentage: ")
+    # new_project = Project(new_name, new_start_date, new_priority, new_cost_estimate, new_completion_percentage)
+
+    # for testing
+    new_project = Project("That thing that happened", "17/3/2004", "5", "777.77", "27")
+
+    return new_project
 
 
 main()
