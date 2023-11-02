@@ -4,6 +4,7 @@ Estimated Time: 90mins
 Actual Time: ???mins
 """
 from project import Project
+import datetime
 
 MENU = """- (L)oad projects
 - (S)ave projects
@@ -33,11 +34,22 @@ def main():
             project_information = display_project_information(project_information)
 
         elif choice == "F":
-            print("Option F")
+            filtered_project_information = []
+            date_string = input("Date (d/m/yyyy): ")  # e.g., "30/9/2022"
+            filter_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            for project in project_information:
+                if filter_date <= project.start_date:
+                    filtered_project_information += [project]
+            display_project_information(filtered_project_information)
+
         elif choice == "A":
             new_project = add_new_project(project_information)
             project_information.append(new_project)
-            print(f"Project {new_project} has been added")
+            print(f"Project: '{new_project.name}, "
+                  f"start: {new_project.start_date}, "
+                  f"priority = {new_project.priority}, "
+                  f"estimate: ${new_project.cost_estimate}, "
+                  f"completion: {new_project.completion_percentage}%' has been added")
 
         elif choice == "U":
             project_information = display_project_information(project_information)
@@ -72,9 +84,8 @@ def display_project_information(project_information):
     sorted_project_information = sorted(project_information)
     for project in sorted_project_information:
         entry_number += 1
-        print(
-            f"{entry_number} {project.name}, start: {project.start_date}, priority = {project.priority}, "
-            f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
+        print(f"{entry_number} {project.name}, start: {project.start_date}, priority = {project.priority}, "
+              f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
     return sorted_project_information
 
 
