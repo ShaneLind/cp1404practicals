@@ -21,10 +21,13 @@ def main():
 
     while choice != "Q":
         if choice == "L":
-            print("Option L")
-            read_from_file()
+            project_information = read_from_file()
+            for project in project_information:
+                print(project)
+
         elif choice == "S":
             print("Option S")
+            save_to_file(project_information)
         elif choice == "D":
             print("Option D")
         elif choice == "F":
@@ -41,10 +44,9 @@ def main():
 
 
 def read_from_file():
-    """Read information from the file specified by the user"""
-    project_list = []
+    """Read project information from the file specified by the user"""
+    project_information = []
 
-    # get user input file name
     # print("The name of the file is:")
     # file_name = input(">>>")
 
@@ -55,11 +57,27 @@ def read_from_file():
     in_file.readline()
     for line in in_file:
         parts = line.strip().split('\t')
-        project_list.append(Project(parts[0], parts[1], parts[2], parts[3], parts[4]))
+        project_information.append(Project(parts[0], parts[1], parts[2], parts[3], parts[4]))
     in_file.close()
 
-    for project in project_list:
-        print(project)
+    return project_information
+
+
+def save_to_file(project_list):
+    """save project information to the file specified by the user"""
+    # print("The name of the file is:")
+    # file_name = input(">>>")
+
+    # for testing
+    file_name = "test.txt"
+
+    out_file = open(file_name, 'w')
+    print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+    for line in project_list:
+        parts = [line.name, line.start_date, line.priority, line.cost_estimate, line.completion_percentage]
+        output = '\t'.join(parts)
+        print(output, file=out_file)
+    out_file.close()
 
 
 main()
