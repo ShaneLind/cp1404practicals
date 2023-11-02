@@ -30,7 +30,7 @@ def main():
             print("Projects have been saved")
 
         elif choice == "D":
-            display_project_information(project_information)
+            project_information = display_project_information(project_information)
 
         elif choice == "F":
             print("Option F")
@@ -40,23 +40,21 @@ def main():
             print(f"Project {new_project} has been added")
 
         elif choice == "U":
-            display_project_information(project_information)
-            project_list = []
-            for project in project_information:
-                project_list += [project]
-
+            project_information = display_project_information(project_information)
             print("Enter the number of a project to modify its completion percentage and priority.")
             project_number = int(input("Project Number: "))
-            print(f"{project_list[project_number - 1].name}, start: {project_list[project_number - 1].start_date}, "
-                  f"priority = {project_list[project_number - 1].priority}, estimate: ${project_list[project_number - 1].cost_estimate}, "
-                  f"completion: {project_list[project_number - 1].completion_percentage}%")
+            print(f"{project_information[project_number - 1].name}, "
+                  f"start: {project_information[project_number - 1].start_date}, "
+                  f"priority = {project_information[project_number - 1].priority}, "
+                  f"estimate: ${project_information[project_number - 1].cost_estimate}, "
+                  f"completion: {project_information[project_number - 1].completion_percentage}%")
 
             user_input_completion_percentage = input("New Completion Percentage: ")
             if user_input_completion_percentage != "":
-                project_list[project_number - 1].completion_percentage = user_input_completion_percentage
+                project_information[project_number - 1].completion_percentage = user_input_completion_percentage
             user_input_priority = input("New Priority: ")
             if user_input_priority != "":
-                project_list[project_number - 1].priority = user_input_priority
+                project_information[project_number - 1].priority = user_input_priority
 
         else:
             print('Invalid menu choice')
@@ -71,11 +69,13 @@ def main():
 
 def display_project_information(project_information):
     entry_number = 0
-    for project in project_information:
+    sorted_project_information = sorted(project_information)
+    for project in sorted_project_information:
         entry_number += 1
         print(
             f"{entry_number} {project.name}, start: {project.start_date}, priority = {project.priority}, "
             f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
+    return sorted_project_information
 
 
 def read_from_file():
