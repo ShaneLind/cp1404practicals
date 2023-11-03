@@ -1,7 +1,7 @@
 """
 CP1404 Practical
 Estimated Time: 90 minutes
-Actual Time: 180 minutes
+Actual Time: 180 + ??? minutes
 """
 from project import Project
 import datetime
@@ -32,7 +32,7 @@ def main():
             print("Projects have been saved")
 
         elif choice == "D":
-            project_information = display_project_information(project_information)
+            project_information = display_project_information(project_information, choice)
 
         elif choice == "F":
             filtered_project_information = []
@@ -41,10 +41,10 @@ def main():
             for project in project_information:
                 if filter_date <= project.start_date:
                     filtered_project_information += [project]
-            display_project_information(filtered_project_information)
+            display_project_information(filtered_project_information, choice)
 
         elif choice == "A":
-            new_project = add_new_project(project_information)
+            new_project = add_new_project()
             project_information.append(new_project)
             print(f"Project: '{new_project.name}, "
                   f"start: {new_project.start_date}, "
@@ -53,21 +53,9 @@ def main():
                   f"completion: {new_project.completion_percentage}%' has been added")
 
         elif choice == "U":
-            project_information = display_project_information(project_information)
-            print("Enter the number of a project to modify its completion percentage and priority.")
-            project_number = int(input("Project Number: "))
-            print(f"{project_information[project_number - 1].name}, "
-                  f"start: {project_information[project_number - 1].start_date}, "
-                  f"priority = {project_information[project_number - 1].priority}, "
-                  f"estimate: ${project_information[project_number - 1].cost_estimate}, "
-                  f"completion: {project_information[project_number - 1].completion_percentage}%")
-
-            user_input_completion_percentage = input("New Completion Percentage: ")
-            if user_input_completion_percentage != "":
-                project_information[project_number - 1].completion_percentage = user_input_completion_percentage
-            user_input_priority = input("New Priority: ")
-            if user_input_priority != "":
-                project_information[project_number - 1].priority = user_input_priority
+            display_project_information(project_information, choice)
+            project_information, completed_projects, incomplete_projects = update_project_information(
+                project_information)
 
         else:
             print('Invalid menu choice')
@@ -80,30 +68,55 @@ def main():
     print("The program has ended")
 
 
-def display_project_information(project_information):
+def display_project_information(project_information, choice):
     """Print a sorted and formatted list of the projects"""
-    entry_number = 0
+    completed_projects = []
+    incomplete_projects = []
     sorted_project_information = sorted(project_information)
     for project in sorted_project_information:
-        entry_number += 1
-        formatted_date = project.start_date.strftime('%d/%m/%Y')
-        print(f"{entry_number} {project.name}, start: {formatted_date}, priority = {project.priority}, "
-              f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
+        if int(project.completion_percentage) == 100:
+            completed_projects.append(project)
+        else:
+            incomplete_projects.append(project)
+    if choice == 'D':
+        print("Incomplete projects:")
+        for project in incomplete_projects:
+            formatted_date = project.start_date.strftime('%d/%m/%Y')
+            print(f"{project.name}, start: {formatted_date}, priority = {project.priority}, "
+                  f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
+
+        print("Completed projects:")
+        for project in completed_projects:
+            formatted_date = project.start_date.strftime('%d/%m/%Y')
+            print(f"{project.name}, start: {formatted_date}, priority = {project.priority}, "
+                  f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
+    else:
+        entry_number = 0
+        for project in sorted_project_information:
+            entry_number += 1
+            formatted_date = project.start_date.strftime('%d/%m/%Y')
+            print(f"{entry_number} - {project.name}, start: {formatted_date}, priority = {project.priority}, "
+                  f"estimate: ${project.cost_estimate}, completion: {project.completion_percentage}%")
     return sorted_project_information
 
 
 def read_from_file():
     """Read project information from the file specified by the user"""
     project_information = []
+    completed_projects = []
+    incomplete_projects = []
     print("The name of the file is:")
     file_name = input(">>>")
-
-    in_file = open(file_name, 'r')
-    in_file.readline()
-    for line in in_file:
-        parts = line.strip().split('\t')
-        project_information.append(Project(parts[0], parts[1], parts[2], parts[3], parts[4]))
-    in_file.close()
+    try:
+        in_file = open(file_name, 'r')
+        in_file.readline()
+        for line in in_file:
+            parts = line.strip().split('\t')
+            project_information.append(Project(parts[0], parts[1], parts[2], parts[3], parts[4]))
+    except FileNotFoundError:
+        print(f"{file_name} not found")
+    finally:
+        in_file.close()  # no problem with potential undefined variable
     return project_information
 
 
@@ -112,25 +125,48 @@ def save_to_file(project_list):
     print("The name of the file is:")
     file_name = input(">>>")
 
-    out_file = open(file_name, 'w')
-    print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
-    for line in project_list:
-        parts = [line.name, str(line.start_date), line.priority, line.cost_estimate, line.completion_percentage]
-        output = '\t'.join(parts)
-        print(output, file=out_file)
-    out_file.close()
+    try:
+        out_file = open(file_name, 'w')
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+        for line in project_list:
+            parts = [line.name, str(line.start_date), line.priority, line.cost_estimate, line.completion_percentage]
+            output = '\t'.join(parts)
+            print(output, file=out_file)
+    except FileNotFoundError:
+        print(f"{file_name} not found")
+    finally:
+        out_file.close()  # no problem with potential undefined variable
 
 
-def add_new_project(project_information):
+def add_new_project():
     """Get user input to add new project"""
     print("Add new project:")
     new_name = input("Project name: ")
     new_start_date = input("Start date: ")
     new_priority = input("Project priority: ")
-    new_cost_estimate = input("Project cost estimate: ")
+    new_cost_estimate = input("Project cost estimate: $")
     new_completion_percentage = input("Project completion percentage: ")
     new_project = Project(new_name, new_start_date, new_priority, new_cost_estimate, new_completion_percentage)
     return new_project
+
+
+def update_project_information(project_information):
+    completed_projects = []
+    incomplete_projects = []
+    print("Enter the number of a project to modify its completion percentage and priority.")
+    project_number = int(input("Project Number: "))
+    print(f"{project_information[project_number - 1].name}, "
+          f"start: {project_information[project_number - 1].start_date}, "
+          f"priority = {project_information[project_number - 1].priority}, "
+          f"estimate: ${project_information[project_number - 1].cost_estimate}, "
+          f"completion: {project_information[project_number - 1].completion_percentage}%")
+    user_input_completion_percentage = input("New Completion Percentage: ")
+    if user_input_completion_percentage != "":
+        project_information[project_number - 1].completion_percentage = user_input_completion_percentage
+    user_input_priority = input("New Priority: ")
+    if user_input_priority != "":
+        project_information[project_number - 1].priority = user_input_priority
+    return project_information, completed_projects, incomplete_projects
 
 
 main()
