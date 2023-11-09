@@ -1,12 +1,18 @@
 BoxLayout:
+    orientation: 'vertical'
     BoxLayout:
+        orientation: 'horizontal'
         TextInput:
-
+            id: input_number
+            text: '34'
+            multiline: False
         BoxLayout:
+            orientation: 'vertical'
             Button:
-
+                text: 'Up'
             Button:
-
+                text: 'Down'
     Button:
-
+        text: 'Convert miles to km'
     Label:
+        id: output_label
