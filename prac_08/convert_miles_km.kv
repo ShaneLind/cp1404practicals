@@ -6,6 +6,7 @@ BoxLayout:
             id: input_number
             text: '34'
             multiline: False
+            on_text_validate: app.handle_update()
         BoxLayout:
             orientation: 'vertical'
             Button:
@@ -14,5 +15,7 @@ BoxLayout:
                 text: 'Down'
     Button:
         text: 'Convert miles to km'
+        on_press: app.handle_conversion(input_number.text)
     Label:
         id: output_label
+        text: app.message
