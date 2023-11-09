@@ -19,25 +19,40 @@ class ConvertMilesKm(App):
 
     def handle_update(self):
         """Handle changes to the text input by updating the model from the view."""
-        self.message = self.root.ids.user_input.text
+        self.message = str(self.get_validated_miles())
 
     def handle_conversion(self, value):
         """Handle conversion of miles to km"""
-        try:
-            result = float(value) * 1.609344
-            self.root.ids.output_label.text = str(result)
-        except ValueError:
-            pass
+        result = self.get_validated_miles() * 1.609344
+        self.root.ids.output_label.text = str(result)
 
     def handle_up(self, value):
         """Handle press of up button"""
-        new_value = int(value) + 1
-        self.root.ids.input_number.text = str(new_value)
+        try:
+            new_value = self.get_validated_miles() + 1
+            self.root.ids.input_number.text = str(new_value)
+        except ValueError:
+            self.message = 0.0
+        except AttributeError:
+            self.message = 0.0
 
     def handle_down(self, value):
         """Handle press of down button"""
-        new_value = int(value) - 1
-        self.root.ids.input_number.text = str(new_value)
+        try:
+            new_value = self.get_validated_miles() - 1
+            self.root.ids.input_number.text = str(new_value)
+        except ValueError:
+            self.message = 0.0
+        except AttributeError:
+            self.message = 0.0
+
+    def get_validated_miles(self):
+        """check if user input miles is valid"""
+        try:
+            value = float(self.root.ids.input_number.text)
+            return value
+        except ValueError:
+            return 0.0
 
 
 ConvertMilesKm().run()
