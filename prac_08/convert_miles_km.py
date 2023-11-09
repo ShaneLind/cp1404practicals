@@ -26,20 +26,10 @@ class ConvertMilesKm(App):
         result = self.get_validated_miles() * 1.609344
         self.root.ids.output_label.text = str(result)
 
-    def handle_up(self, value):
-        """Handle press of up button"""
+    def handle_increment(self, value):
+        """Handle press of up and down button"""
         try:
-            new_value = self.get_validated_miles() + 1
-            self.root.ids.input_number.text = str(new_value)
-        except ValueError:
-            self.message = 0.0
-        except AttributeError:
-            self.message = 0.0
-
-    def handle_down(self, value):
-        """Handle press of down button"""
-        try:
-            new_value = self.get_validated_miles() - 1
+            new_value = self.get_validated_miles() + value
             self.root.ids.input_number.text = str(new_value)
         except ValueError:
             self.message = 0.0
