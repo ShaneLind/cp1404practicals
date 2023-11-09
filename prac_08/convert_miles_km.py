@@ -20,8 +20,9 @@ class ConvertMilesKm(App):
     def handle_update(self):
         """Handle changes to the text input by updating the model from the view."""
         self.message = str(self.get_validated_miles())
+        self.handle_conversion()
 
-    def handle_conversion(self, value):
+    def handle_conversion(self):
         """Handle conversion of miles to km"""
         result = self.get_validated_miles() * 1.609344
         self.root.ids.output_label.text = str(result)
@@ -31,6 +32,7 @@ class ConvertMilesKm(App):
         try:
             new_value = self.get_validated_miles() + value
             self.root.ids.input_number.text = str(new_value)
+            self.handle_conversion()
         except ValueError:
             self.message = 0.0
         except AttributeError:
