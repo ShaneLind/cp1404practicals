@@ -4,6 +4,7 @@ CP1404 Week 8 Practical
 
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.uix.button import Label
 
 NAMES = ["name1", "name2", "name3", "name4"]
 
