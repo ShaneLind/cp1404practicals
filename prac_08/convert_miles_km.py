@@ -29,5 +29,15 @@ class ConvertMilesKm(App):
         except ValueError:
             pass
 
+    def handle_up(self, value):
+        """Handle press of up button"""
+        new_value = int(value) + 1
+        self.root.ids.input_number.text = str(new_value)
+
+    def handle_down(self, value):
+        """Handle press of down button"""
+        new_value = int(value) - 1
+        self.root.ids.input_number.text = str(new_value)
+
 
 ConvertMilesKm().run()
