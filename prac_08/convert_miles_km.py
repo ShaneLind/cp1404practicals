@@ -6,6 +6,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 
+CONVERSION_VALUE = 1.609344
+
 
 class ConvertMilesKm(App):
     """ ConvertMilesKm is a Kivy App for converting miles to km """
@@ -24,7 +26,7 @@ class ConvertMilesKm(App):
 
     def handle_conversion(self):
         """Handle conversion of miles to km"""
-        result = self.get_validated_miles() * 1.609344
+        result = self.get_validated_miles() * CONVERSION_VALUE
         self.root.ids.output_label.text = str(result)
 
     def handle_increment(self, value):
