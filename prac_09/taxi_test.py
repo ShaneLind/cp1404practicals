@@ -1,7 +1,6 @@
 """
 CP1404 Practical
 """
-# from car import Car
 from taxi import Taxi
 
 my_taxi = Taxi(name="Prius 1", fuel=100)
