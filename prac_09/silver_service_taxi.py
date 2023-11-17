@@ -24,6 +24,11 @@ class SilverServiceTaxi(Taxi):
         self.number_of_fares += 1
         return current_fare
 
+    def start_fare(self):
+        """Begin a new fare and reset the fare count"""
+        self.current_fare_distance = 0
+        self.number_of_fares = 1
+
     def __str__(self):
         """Return a string like a Taxi but with flagfall."""
         return (f"{super().__str__()}, {self.current_fare_distance}km on current fare, ${self.price_per_km:.2f}/km "
