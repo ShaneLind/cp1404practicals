@@ -19,7 +19,7 @@ class SilverServiceTaxi(Taxi):
 
     def get_fare(self):
         """Return the price for the taxi trip like parent class,
-        but adds an extra charge for each now fare."""
+        but adds an extra charge for each new fare."""
         current_fare = super().get_fare() + (self.flagfall * self.number_of_fares)
         self.number_of_fares += 1
         return current_fare
