@@ -33,8 +33,9 @@ def main():
             else:
                 distance = float(input("Drive How Far? (km): "))
                 taxis[current_taxi].drive(distance)
-                bill += taxis[current_taxi].get_fare()
-                print(f"Your {taxis[current_taxi].name} trip cost you ${taxis[current_taxi].get_fare():.2f}")
+                current_bill = taxis[current_taxi].get_fare()
+                bill += current_bill
+                print(f"Your {taxis[current_taxi].name} trip cost you ${current_bill:.2f}")
 
         else:
             print("Invalid menu choice")
