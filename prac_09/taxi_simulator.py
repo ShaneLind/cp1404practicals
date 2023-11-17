@@ -9,7 +9,7 @@ MENU = """q)uit, c)hoose taxi, d)rive"""
 
 
 def main():
-    """ ??????????    """
+    """Take user input to choose and drive a taxi"""
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
     current_taxi = None
     bill = 0.00
@@ -53,6 +53,7 @@ def main():
 
 
 def display_available_taxis(taxis):
+    """Print the available taxis"""
     taxi_number = 0
     for taxi in taxis:
         print(f"{taxi_number} - {taxi.__str__()}")
