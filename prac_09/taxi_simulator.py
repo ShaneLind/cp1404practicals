@@ -40,8 +40,13 @@ def main():
             print("Invalid menu choice")
 
         print(f"Bill to date: ${bill:.2f}")
+
         print(MENU)
         choice = input(">>> ").upper()
+
+    print(f"Total Trip Cost: ${bill:.2f}")
+    print("Taxis are now:")
+    display_available_taxis(taxis)
 
 
 def display_available_taxis(taxis):
