@@ -19,6 +19,7 @@ def main():
 
     while choice != "Q":
         if choice == "C":
+            print("Taxis Available:")
             display_available_taxis(taxis)
             taxi_choice = int(input("Choose Taxi:  "))
             if 0 <= taxi_choice <= 2:
@@ -32,6 +33,7 @@ def main():
                 print("You need to choose a taxi before you can drive")
             else:
                 distance = float(input("Drive How Far? (km): "))
+                taxis[current_taxi].start_fare()
                 taxis[current_taxi].drive(distance)
                 current_bill = taxis[current_taxi].get_fare()
                 bill += current_bill
@@ -51,7 +53,6 @@ def main():
 
 
 def display_available_taxis(taxis):
-    print("Taxis Available:")
     taxi_number = 0
     for taxi in taxis:
         print(f"{taxi_number} - {taxi.__str__()}")
