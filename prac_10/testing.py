@@ -57,6 +57,7 @@ run_tests()
 # (PyCharm may see your >>> doctest comments and run doctests anyway.)
 doctest.testmod()
 
+
 # TODO: 4. Fix the failing is_long_word function
 # (don't change the tests, change the function!)
 
@@ -69,3 +70,20 @@ doctest.testmod()
 # and one more you decide (one that is valid!)
 # test this and watch the tests fail
 # then write the body of the function so that the tests pass
+
+def format_phrase_to_sentence(phrase):
+    """
+    Determine if the word is as long or longer than the length passed in
+    >>> format_phrase_to_sentence("hello")
+    False
+    >>> format_phrase_to_sentence("It is an ex parrot.")
+    True
+    >>> format_phrase_to_sentence("Greetings code reviewer.")
+    True
+    """
+    sentence = list(phrase)
+    sentence[0] = sentence[0].upper()
+    if sentence[-1] != ".":
+        sentence = sentence + ["."]
+    sentence = "".join(sentence)
+    return phrase == sentence
